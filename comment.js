@@ -1,18 +1,16 @@
 // Create web server
-// Create web server
-// Require the express module
-const express = require('express');
-const app = express();
-const port = 3000;
-
-// Require the file system module
-const fs = require('fs');
-
-// Require the path module
-const path = require('path');
-
-// Require the body parser module
-const bodyParser = require('body-parser');
-
-// Use the body parser module
-app.use(bodyParser.urlencoded({ extended: false }));
+// Create a new comment
+app.post('/api/comment', (req, res) => {
+    let comment = new Comment({
+        name: req.body.name,
+        email: req.body.email,
+        message: req.body.message,
+        date: new Date()
+    });
+    comment.save((err, result) => {
+        if (err) {
+            res.send(err);
+        }
+        res.send(result);
+    });
+});
